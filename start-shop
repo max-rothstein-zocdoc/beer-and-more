@@ -1,0 +1,27 @@
+#!/usr/bin/env bash -e
+PWD=$(pwd)
+
+load_dramatically ()
+{
+    sleep 1
+    printf "."
+    sleep 1
+    printf "."
+    sleep 1
+    printf "."
+    sleep 2
+}
+
+while getopts ":b" opt; do
+  case $opt in
+    b)
+      printf "Starting up the beer shop."
+      load_dramatically
+      $PWD/beer
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
+
