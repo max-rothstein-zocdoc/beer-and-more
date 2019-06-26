@@ -39,6 +39,36 @@ o=(=(=(=(=(=(=)=)=)=)=o
 !!!!           !!!! 
 `;
 
+const congrats= `
+*    *
+*         '       *       .  *   '     .           * *
+                                                            '
+    *                *'          *          *        '
+.           *               |               /
+            '.         |    |      '       |   '     *
+              \\*        \\   \\             /
+    '          \     '* |    |  *        |*                *  *
+         *      \`.       \\   |     *     /    *      '
+.                  \      |   \          /               *
+  *'  *     '      \\      \\   '.       |
+     -._            \`                  /         *
+' '      \`\`._   *                           '          .      '
+*           *\*          * .   .      *
+*  '        *    \`-._                       .         _..:='        *
+          .  '      *       *    *   .       _.:--'
+       *           .     .     *         .-'         *
+.               '             . '   *           *         .
+*       ___.-=--..-._     *                '               '
+                               *       *
+             *        _.'  .'       \`.        '  *             *
+  *              *_.-'   .'            \`.               *
+                .'                       \`._             *  '
+'       '                        .       .  \`.     .
+    .                      *                  \`
+            *        '             '                          .
+  .                          *        .           *  *
+          *        .                                    '`
+
 let hasChoicesLeftVal = false;
 let choicesLeft = 100;
 
@@ -63,6 +93,9 @@ let isLiar = false;
 let hasBraveryVal = false;
 let isBrave = true;
 
+let knowsAge = false;
+let age = 1;
+
 let whyDidYouComeAllThisWay = 'No Reason';
 
 let anythingYouWant = 'Nothing';
@@ -74,77 +107,86 @@ const run = async () => {
     try {
         await cmd.sleep(300);
         await cmd.cs();
-        await cmd.talk([
+        say(
             'Welcome friend.',
-        ]);
+       );
         await cmd.sleep(600);
         printDoorsByName(['Door ' + 1])
-        await cmd.talk([
+        say(
             'Here is your first door, press 1 to open it',
-        ]);
+       );
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1') {
             print('*Wow...Its so bright...Who is that?*')
             await cmd.sleep(2000);
-            print('Welcome to the world of doors! You just picked your first door! Fun, wasn\'t it? ');
             await cmd.sleep(3000);
         } else {
             print('Sometimes there are more choices than are offered, but your first door was not your choice to make');
             await cmd.sleep(4000);
             printDoorsByName(['Door ' +1])
-            await cmd.talk([
+            say(
                 'You might not remember your first door, press 1 to open it',
-            ]);
+           );
             resp = await rl.q('>> ');
             if (resp.toLowerCase() !== '1') {
                 print('Hmmm, seems like you didn\'t want to pick the door on your own... thats ok, I guess the doctor got you out');
                 await cmd.sleep(3000);
-                await dramaitcPause();
+                await dramaticPauseWithText();
                 process.stdout.write('snip');
                 await cmd.sleep(100);
-                await dramaitcPause();
+                await dramaticPauseWithText();
                 process.stdout.write('snip');
-                await dramaitcPause();
+                await dramaticPauseWithText();
                 await cmd.sleep(1000);
             }
             await cmd.cs();
-            print('Welcome to the world of doors! You just picked your first door! Fun, wasn\'t it? ');
             await cmd.sleep(2000);
-            await dramaitcPause();
+            await dramaticPauseWithText();
             await cmd.sleep(2000);
         }
         await cmd.cs();
-        await cmd.talk([
+        print('Welcome to the world of doors! You just picked your first door! Fun, wasn\'t it? ');
+        await cmd.sleep(3000);
+        print('Doors could be opened by typing the number or name of the door...remember?');
+        await cmd.sleep(3000);
+        print('if you were too lazy to type the door name in full,');
+        await cmd.sleep(3000);
+        print('the doors can be opened by using the number coorosponding to the order in which they appeared');
+        await cmd.sleep(3000);
+        await cmd.cs();
+        say(
             'At first the doors were simple.', 
-        ]);
+       );
         await cmd.sleep(4000);
-        await cmd.talk([
+        say(
             'There wasn\'t much to go on', 
-        ]);
+       );
         await cmd.sleep(1000);
-        await cmd.talk([
+        say(
             'and others were there to guide you so you didn\'t pick the wrong door', 
-        ]);
+       );
         await cmd.sleep(3000);
         printDoorsByName(['Door ' + 1,'Door ' + 2]);
         await cmd.sleep(1000);
-        await cmd.talk([
+        say(
             '*hmmm...I think they want me to do something*',
-        ]);
+       );
         await cmd.sleep(1000);
-        await cmd.talk([
+        say(
             '~Door 1 is the right answer! You can do it! Door 1!~',
-        ]);
+       );
         await cmd.sleep(500);
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1') {
             print('~You did it! Im so proud of you! Look how smart you are!~');
             await cmd.sleep(3000);
         } else if(resp.toLowerCase() === '2'){
-            print('~No not that door, lets try again~');
+            print('~No not that door, lets try again. You\'re 2 years old already! You can do this!~');
             await cmd.sleep(2000);
-            await dramaitcPause();
+            await dramaticPauseWithText();
             await cmd.sleep(100);
+            knowsAge = true;
+            age = 2;
             printDoorsByName(['Door ' + 1,'Door ' + 2]);
             print('~Pick Door 1! I know you can do it!~');
             resp = await rl.q('>> ');
@@ -154,12 +196,13 @@ const run = async () => {
             } else {
                 print('~Sigh');
                 await cmd.sleep(2000);
-                await dramaitcPause();
+                await dramaticPauseWithText();
                 await cmd.sleep(500);
-                print('~The books say you could do this by now... lets try again some other time~');
+                print('~The books say you could do this by now... Lets try again some other time~');
                 await cmd.sleep(3000);
                 print('~Its ok, we still love you~');
                 await cmd.sleep(3000);
+
             }
         } else {
             printDoorsByName(['Door ' + 1,'Door ' + 2]);
@@ -170,7 +213,7 @@ const run = async () => {
             } else {
                 print('~Sigh');
                 await cmd.sleep(2000);
-                await dramaitcPause();
+                await dramaticPauseWithText();
                 await cmd.sleep(500);
                 print('~The books say you could do this by now... lets try again some other time~');
                 await cmd.sleep(3000);
@@ -179,21 +222,23 @@ const run = async () => {
             }
         }
         await cmd.cs();
-        await cmd.talk([
+        say(
             '*They get so happy when I do what they say*',
-        ]);
+       );
         await cmd.sleep(2000);
-        await cmd.talk([
-            '~Ok ' +name+ ', time for your first day of school! How exciting!~',
-        ]);
+        say(
+            '~Ok ' +name+ ', time for your first day of school! How exciting! I cant beleive you are already 6~',
+       );
+        knowsAge = true;
+        age = 6;
         await cmd.sleep(2000);
-        await cmd.talk([
+        say(
             '~The bus is here~',
-        ]);
+       );
         await cmd.sleep(2000);
-        await cmd.talk([
+        say(
             '~Time to get on~',
-        ]);
+       );
         printDoorsByName(['Door To Bus']);
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1' || resp.toLowerCase() === 'to bus' ||resp.toLowerCase() === 'bus') {
@@ -201,32 +246,32 @@ const run = async () => {
         } else {
             await cmd.cs();
             await cmd.sleep(1000);
-            await cmd.talk([
+            say(
                 '~I know its scary '+name+'...~',
-            ]);
+           );
             await cmd.sleep(2000);
-            await cmd.talk([
+            say(
                 '~But its something you have to do!~',
-            ]);
+           );
             await cmd.sleep(2000);
-            await cmd.talk([
+            say(
                 '~All the other US3R5_M@L3 and US3R5_F3M@L3 are going to be there!~',
-            ]);
+           );
             printDoorsByName(['Door To Bus']);
             resp = await rl.q('>> ');
             if (resp.toLowerCase() === '1' || resp.toLowerCase() === 'to bus' ||resp.toLowerCase() === 'bus') {
-                await cmd.talk([
+                say(
                     '*I made USER_WITH_TEXT_IDENTIFICATION_ICON=`~` so proud today*',
-                ]);
-                await cmd.talk([
+               );
+                say(
                     '~I love you '+name+'! Have a great first day~',
-                ]);
+               );
                 hasFamilyFavorVal = true;
                 familyFavor ++;
             } else {
-                await cmd.talk([
+                say(
                     '~ugh fine, you can stay home...but just this once~',
-                ]);
+               );
                 await cmd.sleep(2000);
                 hasEducationVal = true;
                 education--;
@@ -234,153 +279,129 @@ const run = async () => {
             }
         }
         await cmd.sleep(1500);
-        await cmd.talk([
+        say(
             'The bus stopped and you followed the other US3R5 off the bus.',
-        ]);
+       );
         await cmd.sleep(1500);
-        await cmd.talk([
+        say(
             'As you were standing on the lawn infront of the school, a bell rang',
-        ]);
+       );
         await cmd.sleep(1500);
         printDoorsByName(['Door To School']);
-        await cmd.talk([
+        say(
             '*Must be time for class...*',
-        ]);
+       );
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1') {
-            await cmd.talk([
+            say(
                 '*Yeah...USER_WITH_TEXT_IDENTIFICATION_ICON=`~` would want me to go to class*',
-            ]);
+           );
             await maybeFirstConsiquence();
             hasEducationVal = true;
             education++;
         } else {
-            await cmd.talk([
+            say(
                 '*No one is around to stop me if I dont go...*',
-            ]);
+           );
             await cmd.sleep(1500);
-            await cmd.talk([
+            say(
                 '*Do I really want to do this? USER_WITH_TEXT_IDENTIFICATION_ICON=`~` wouldn\'t like it.*',
-            ]);
+           );
             printDoorsByName(['Door To School']);
             resp = await rl.q('>> ');
             if (resp.toLowerCase() === '1') {
-                await cmd.talk([
+                say(
                     '*I guess I will go...but what happens if i don\'t?*',
-                ]);
+               );
                 await cmd.sleep(1500);
-                await cmd.talk([
+                say(
                     '*A question for another time...*',
-                ]);
+               );
                 await maybeFirstConsiquence();
                 hasEducationVal = true;
                 education++;
             } else {
-                await cmd.talk([
+                say(
                     '*Why should I? I get to choose my own doors dont I?*',
-                ]);
+               );
                 await cmd.sleep(1500);
                 await maybeFirstConsiquence();
                 hasEducationVal = true;
                 education--;
-                await cmd.talk([
+                say(
                     'What did you do instead?',
-                ]);
+               );
                 printDoorsByName(['Door To Home'],['Door To Playground']);
                 resp = await rl.q('>> ');
                 if (resp.toLowerCase() === '1' || resp.toLowerCase() === 'to home' ||resp.toLowerCase() === 'home') {
-                    await cmd.talk([
+                    say(
                         'Interesting, why did you come all this way only to go back?',
-                    ]);
+                   );
                     await cmd.sleep(1500);
                     resp = await rl.q('>> ');
                     whyDidYouComeAllThisWay = resp
                     await cmd.sleep(200);
-                    await cmd.talk([
+                    say(
                         'Facinating...I will remember that.',
-                    ]);
+                   );
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'Ok so you walked home...what did you do then?',
-                    ]);
-                    printDoorsByName(['Door To Play In Basement'],['Door To Room']);
+                    say(
+                        'Ok so you walked home and stood outside your house...what did you do then?',
+                   );
+                    printDoorsByName(['Door To Play In Basement'],['Window To Room']);
                     resp = await rl.q('>> ');
                     if (resp.toLowerCase() === '1' || resp.toLowerCase() === 'to play in basement' ||resp.toLowerCase() === 'play in basement') {
-                        await cmd.talk([
+                        say(
                             '*I\'m gonna play with my toys...This is gonna be great*',
-                        ]);
+                       );
                         await cmd.sleep(1500);
-                        await cmd.talk([
+                        say(
                             'You played for a few hours until you heard footsteps in the basement',
-                        ]);
+                       );
                         await cmd.sleep(1500);
-                        await cmd.talk([
-                            '~'+name+'? Is that you down there?~',
-                        ]);
+                        say( '~'+name+'? Is that you down there?~');
                         await cmd.sleep(1500);
-                        await cmd.talk([
-                            'She caught you, and she wasn\'t happy',
-                        ]);
+                        say('She caught you, and she wasn\'t happy');
                         await maybeFirstConsiquence();
                         hasFamilyFavorVal = true;
                         familyFavor--;
                         await cmd.sleep(1500);
-                    } else if (resp.toLowerCase() === '2' || resp.toLowerCase() === 'to room' ||resp.toLowerCase() === 'room') {
-                        await cmd.talk([
-                            '*I\'m gonna go to my room, but I might get caught by USER_WITH_TEXT_IDENTIFICATION_ICON=`~` if I use the front door*',
-                        ]);
-                        await cmd.talk([
-                            'you climbed to the window of your room...what would happend next was not up to you or anyone',
-                        ]);
+                    } else if (resp.toLowerCase() === '2' || resp.toLowerCase() === 'window to room' ||resp.toLowerCase() === 'room') {
+                        say('*I\'m gonna go to my room, but I might get caught by USER_WITH_TEXT_IDENTIFICATION_ICON=`~` if I use the front door*');
+                        say('you climbed to the window of your room...what would happend next was not up to you or anyone');
                         await cmd.sleep(1500);
-                        await cmd.talk([
-                            'Rolling Dice...',
-                        ]);
+                        say('Rolling Dice...');
                         await cmd.sleep(1500);
                         if (isSuccessfulWithOneInXOdds(2)) {
-                            await cmd.talk([
-                                'you opened the window and made it into your room',
-                            ]);
+                            say('you opened the window and made it into your room');
                             await cmd.sleep(1500);
-                            await cmd.talk([
-                                '*Wow! What should I do first? I can do anything I want',
-                            ]);
+                            say('*Wow! What should I do first? I can do anything I want*');
                             resp = await rl.q('>> ');
                             if (resp === '') {
                                 await cmd.sleep(500);
-                                await cmd.talk([
-                                    'You chose to do nothing?',
-                                ]);
+                                say('You chose to do nothing?');
                                 await cmd.sleep(1500);
-                                await cmd.talk([
-                                    'Interesting',
-                                ]);
-                                await dramaitcPause()
+                                say('Interesting',);
+                                await dramaticPauseWithText()
                                 anythingYouWant = "Nothing";
 
                             } else {
                                 anythingYouWant = resp;
                                 await cmd.sleep(1500);
-                                await cmd.talk([
-                                    'But you never got a chance...',
-                                ]);
+                                say('But you never got a chance...');
                             }
                             await cmd.sleep(1500);
-                            await cmd.talk([
-                                'You heard glass shatter in the hallway',
-                            ]);
+                            say('You heard glass shatter in the hallway');
                             await cmd.sleep(1500);
-                            await cmd.talk([
+                            say(
                                 'You heard glass shatter in the hallway and two people yelling',
-                            ]);
+                            );
                             await cmd.sleep(1500);
-                            await cmd.talk([
-                                '*What was that?*',
-                            ]);
+                            say('*What was that?*');
                             await cmd.sleep(1500);
-                            await cmd.talk([
+                            say(
                                 'Were you scared?',
-                            ]);
+                            );
                             let answer = false 
                             while (!answer) {
                                 resp = await rl.q('>> ');
@@ -394,9 +415,9 @@ const run = async () => {
                                     isLiar = false;
                                 }
                                 else {
-                                    await cmd.talk([
+                                    say(
                                         'Sometimes there really are only two choices...',
-                                    ]);
+                                    );
                                 }
                             }
                             printDoorsByName(['Door toward the noise'], ['Door to hide in the closet']);
@@ -404,21 +425,16 @@ const run = async () => {
                             if (resp === '1' || resp === 'toward the noise' || resp === 'noise') {
                                 hasBraveryVal = true;
                                 isBrave = true;
-                                await cmd.talk([
+                                say(
                                     'You opened the door to the hallway',
-                                ]);
+                                );
                                 await cmd.sleep(1500);
-                                await cmd.talk([
-                                    'And what you saw haunted you',
-                                ]);
+                                say(
+                                    'And what you saw haunted you');
                                 await cmd.sleep(1500);
-                                await cmd.talk([
-                                    'USER_UNKOWN_TEXT_IDENTIFICATION_ICON, who you would never see again and who you would never forgive...',
-                                ]);
-                                await cmd.talk([
-                                    'And USER_WITH_TEXT_IDENTIFICATION_ICON=`~`',
-                                ]);
-                                await dramaitcPause();
+                                say('USER_UNKOWN_TEXT_IDENTIFICATION_ICON, who you would never see again and who you would never forgive...');
+                                say('And USER_WITH_TEXT_IDENTIFICATION_ICON=`~`');
+                                await dramaticPauseWithText();
                                 await cmd.sleep(500);
                                 await process.stdout.write("crying");
                                 await cmd.sleep(1500);
@@ -426,52 +442,32 @@ const run = async () => {
                             } else if (resp === '2' || resp === 'hide in the closet' || resp === 'hide in closet' || resp === 'closet') {
                                 hasBraveryVal = true;
                                 isBrave = false;
-                                await cmd.talk([
-                                    'Eventually the noises faded',
-                                ]);
+                                say('Eventually the noises faded');
                             } else {
-                                await cmd.talk([
-                                    'Eventually the noises faded',
-                                ]);
+                                say('Eventually the noises faded');
                             }
                         } else {
-                            await cmd.talk([
-                                'You fell from your house and died...what a shame',
-                            ]);
+                            say('You fell from your house and died...what a shame');
                         }
+                    } else {
+                        await endOfWorld();
                     }
                     await cmd.sleep(1500); 
                 } else if (resp.toLowerCase() === '2' || resp.toLowerCase() === 'to playground' ||resp.toLowerCase() === 'playground') {
-                    await cmd.talk([
-                        'You made your way around the school and opened the door to the playground',
-                    ]);                    
+                    say('You made your way around the school and opened the door to the playground');                    
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'You saw a INSERT_DESIRED_TOY in the sandbox and picked it up',
-                    ]);
+                    say('You saw a INSERT_DESIRED_TOY in the sandbox and picked it up');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        '*Wow! I have always wanted INSERT_DESIRED_TOY...',
-                    ]);
+                    say('*Wow! I have always wanted INSERT_DESIRED_TOY...');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        '*USER_WITH_TEXT_IDENTIFICATION_ICON=`~` said we couldnt afford one...I\'m so happy I found one!',
-                    ]);
+                    say('*USER_WITH_TEXT_IDENTIFICATION_ICON=`~` said we couldnt afford one...I\'m so happy I found one!');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'But shortly after UNKNOWN_CHILD came running out from the school...',
-                    ]);
+                    say('But shortly after UNKNOWN_CHILD came running out from the school...');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'You saw him coming and hid INSERT_DESIRED_TOY behind your back',
-                    ]);
+                    say('You saw him coming and hid INSERT_DESIRED_TOY behind your back');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'He began looking for his INSERT_DESIRED_TOY',
-                    ]);
-                    await cmd.talk([
-                        'What did you do?',
-                    ]);
+                    say('He began looking for his INSERT_DESIRED_TOY');
+                    say('What did you do?');
                     let answer2 = false;
                     while (answer2) {
                         printDoorsByName['Door To Return INSERT_DESIRED_TOY', 'Door To Keep INSERT_DESIRED_TOY']
@@ -481,73 +477,52 @@ const run = async () => {
                         } else if (resp === '2' || resp === 'keep' || resp === 'keep toy' || resp === 'keep insert_desired_toy') {
                             karma++;
                         } else {
-                            await cmd.talk([
-                                'Sometimes there really are only two choices...',
-                            ]);
+                            say('Sometimes there really are only two choices...');
                         }
                     }
-                    await cmd.talk([
-                        'The UNKNOWN_CHILD ran back to class',
-                    ]);
+                    say('The UNKNOWN_CHILD ran back to class');
                     await cmd.sleep(1500);
-                    await cmd.talk([
-                        'But a teacher saw you outside, and ushered you to class',
-                    ]);
+                    say('But a teacher saw you outside, and ushered you to class');
                     hasEducationVal = true;
                     education++;
                 } else {
-                    await cmd.talk([
-                        'As you were deciding what you wanted to do... a teacher saw you outside, and ushered you to class',
-                    ]);
+                    say('As you were deciding what you wanted to do... a teacher saw you outside, and ushered you to class');
                     hasEducationVal = true;
                     education++;
                 }
             }
         }
-        await cmd.talk([
-            'Some Time Passes',
-        ]);
-        await dramaitcPause();
-        await cmd.talk([
-            'You were at school...',
-        ]);
+        say('Some Time Passes...you grow older');
+        await dramaticPauseWithText();
+        cmd.sleep(3000);
+        say('You were at school...');
         await cmd.sleep(1500);
-        await cmd.talk([
-            'A different school...One for older kids',
-        ]);
+        say('A different school...One for older kids');
         await cmd.sleep(1500);
-        await cmd.talk([
-            'It was a week until Midterms',
-        ]);
+        say('It was a week until Midterms');
         await cmd.sleep(1500);
-        await cmd.talk([
-            'You had another choice to make...',
-        ]);
+        say('You had another choice to make...');
         printStats(['Door to tryout for INSERT_SPORTS_TEAM','Door to study for the INSERT_HARD_CLASS exam'])
         resp = await rl.q('>> ');
         if(resp === '1' || resp === 'tryout' || resp === 'tryout for insert_sports_team') {
             hasFitnessVal = true;
             fitnessVal++;
-            await cmd.talk([
-                '*I\'ve always wanted to be a pro INSERT_SPORTS_TEAM player...*',
-            ]);
+            say('*I\'ve always wanted to be a pro INSERT_SPORTS_TEAM player...*');
             //fight on field
+            await endOfWorld();
         } else if(resp === '2' || resp === 'study' || resp === 'study for insert_hard_class') {
             hasEducationVal = true;
             education++;
-            await cmd.talk([
-                '*That exam has me worred...best focus on my studies*',
-            ]);
+            say('*That exam has me worred...best focus on my studies*');
             //bully
+            await endOfWorld();
         } else {
-            await cmd.talk([
-                '*Eh...I\'ll do my own thing*',
-            ]);
-            await cmd.talk([
-                'Interesting... you didn\'t fit either mold...'
-            ]);
+            say('*Eh...I\'ll do my own thing*',);
+            say('Interesting... you didn\'t fit either mold...');
             ///more
+            await endOfWorld();
         }
+        await endOfWorld();
     } catch (err) {
         if (err instanceof ZingError) {
             print('Forced exit. Starting over...');
@@ -576,7 +551,7 @@ const printDoorsByName = doorNameArray => {
 }
 
 const printStats = () => {
-    if (hasEducationVal || hasChoicesLeftVal || hasFitnessVal || !hasFamily|| hasFamilyFavorVal|| hasLiarVal || hasBraveryVal || hasKarmaVal ) {
+    if (hasEducationVal || hasChoicesLeftVal || hasFitnessVal || !hasFamily|| hasFamilyFavorVal|| hasLiarVal || hasBraveryVal || hasKarmaVal || knowsAge ) {
         console.log('--------'+name+'-ST@T5-------')
     }
     if (hasEducationVal) {
@@ -602,23 +577,33 @@ const printStats = () => {
     if (hasKarmaVal) {
         console.log('Karma: ' + karma);
     }
-    if (hasEducationVal || hasChoicesLeftVal || hasFitnessVal || !hasFamily|| hasFamilyFavorVal|| hasLiarVal || hasBraveryVal || hasKarmaVal ) {
+    if (knowsAge) {
+        console.log('Age: ' + age);
+    }
+    if (hasEducationVal || hasChoicesLeftVal || hasFitnessVal || !hasFamily|| hasFamilyFavorVal|| hasLiarVal || hasBraveryVal || hasKarmaVal || knowsAge) {
         console.log('-----------------------------')
     }
 }
 
 const maybeFirstConsiquence = async () => {
-    firstConsiquence = false;
-    await cmd.sleep(2000);
-    await cmd.talk([
-        'That was the first choice that had a consiquence',
-    ]);
-    await cmd.sleep(2000);
-    await cmd.talk([
-        'But not the last',
-    ]);
-    await cmd.sleep(2000);
-    await dramaitcPause();
+    if(firstConsiquence) {
+        firstConsiquence = false;
+        await cmd.sleep(2000);
+        say('That was the first choice that had a consiquence');
+        await cmd.sleep(2000);
+        say('But not the last');
+        await cmd.sleep(2000);
+        await dramaticPauseWithText();
+    } else {
+        await cmd.sleep(2000);
+        say('Another fork in the road')
+        await dramaticPauseWithText();
+        await cmd.sleep(2000);
+        say(
+            'What was on the other path?',
+       );
+        await cmd.sleep(2000);
+    }
 }
 
 const isSuccessfulWithOneInXOdds = (denominatorOfOdds) => {
@@ -630,11 +615,25 @@ const isSuccessfulWithOneInXOdds = (denominatorOfOdds) => {
     }
 }
 
-const dramaitcPause = async () => {
+const dramaticPauseWithText = async (text) => {
+    process.stdout.write(text)
+    await cmd.sleep(500);
     process.stdout.write('.');
     await cmd.sleep(500);
     process.stdout.write('.');
     await cmd.sleep(500);
     process.stdout.write('.\n');
     await cmd.sleep(500);
+}
+
+const endOfWorld = async () => {
+    cmd.cs();
+    await process.stdout.write(congrats);
+    say(
+        'YOU FOUND THE ENDGE OF THE WOLRD...congrats?',
+   );
+}
+
+const say = async (input) => {
+    return await await cmd.talk([input]);
 }
