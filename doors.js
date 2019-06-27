@@ -113,17 +113,17 @@ const run = async () => {
         await say('Here is your first door, press 1 to open it');
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1') {
-            print('*Wow...Its so bright...Who is that?*')
+            await say('*Wow...Its so bright...Who is that?*')
             await cmd.sleep(2000);
             await cmd.sleep(3000);
         } else {
-            print('Sometimes there are more choices than are offered, but your first door was not your choice to make');
+            await say('Sometimes there are more choices than are offered, but your first door was not your choice to make');
             await cmd.sleep(4000);
             printDoorsByName(['Door ' +1])
             await say('You might not remember your first door, press 1 to open it');
             resp = await rl.q('>> ');
             if (resp.toLowerCase() !== '1') {
-                print('Hmmm, seems like you didn\'t want to pick the door on your own... thats ok, I guess the doctor got you out');
+                await say('Hmmm, seems like you didn\'t want to pick the door on your own... thats ok, I guess the doctor got you out');
                 await cmd.sleep(3000);
                 await dramaticPauseWithText();
                 process.stdout.write('snip');
@@ -139,13 +139,13 @@ const run = async () => {
             await cmd.sleep(2000);
         }
         await cmd.cs();
-        print('Welcome to the world of doors! You just picked your first door! Fun, wasn\'t it? ');
+        await say('Welcome to the world of doors! You just picked your first door! Fun, wasn\'t it? ');
         await cmd.sleep(3000);
-        print('Doors could be opened by typing the number or name of the door...remember?');
+        await say('Doors could be opened by typing the number or name of the door...remember?');
         await cmd.sleep(3000);
-        print('if you were too lazy to type the door name in full,');
+        await say('if you were too lazy to type the door name in full,');
         await cmd.sleep(3000);
-        print('the doors can be opened by using the number coorosponding to the order in which they appeared');
+        await say('the doors can be opened by using the number coorosponding to the order in which they appeared');
         await cmd.sleep(3000);
         await cmd.cs();
         await say('At first the doors were simple.');
@@ -154,7 +154,7 @@ const run = async () => {
         await cmd.sleep(1000);
         await say('and others were there to guide you so you didn\'t pick the wrong door');
         await cmd.sleep(3000);
-        printDoorsByName(['Door ' + 1,'Door ' + 2]);
+        await say(['Door ' + 1,'Door ' + 2]);
         await cmd.sleep(1000);
         await say('*hmmm...I think they want me to do something*');
         await cmd.sleep(1000);
@@ -162,46 +162,48 @@ const run = async () => {
         await cmd.sleep(500);
         resp = await rl.q('>> ');
         if (resp.toLowerCase() === '1') {
-            print('~You did it! Im so proud of you! Look how smart you are!~');
+            await say('~You did it! Im so proud of you! Look how smart you are!~');
             await cmd.sleep(3000);
         } else if(resp.toLowerCase() === '2'){
-            print('~No not that door, lets try again. You\'re 2 years old already! You can do this!~');
+            await say('~No not that door, lets try again. You\'re 2 years old already! You can do this!~');
+            await cmd.sleep(2000);
+            await say('*Hmmm...They said my age...I guess I\'m 2*');
             await cmd.sleep(2000);
             await dramaticPauseWithText();
             await cmd.sleep(100);
             knowsAge = true;
             age = 2;
             printDoorsByName(['Door ' + 1,'Door ' + 2]);
-            print('~Pick Door 1! I know you can do it!~');
+            await say('~Pick Door 1! I know you can do it!~');
             resp = await rl.q('>> ');
             if (resp.toLowerCase() === '1') {
-                print('~You did it! Im so proud of you! I knew you would get it eventually!~');
+                await say('~You did it! Im so proud of you! I knew you would get it eventually!~');
                 await cmd.sleep(4000);
             } else {
-                print('~Sigh');
+                await say('~Sigh');
                 await cmd.sleep(2000);
                 await dramaticPauseWithText();
                 await cmd.sleep(500);
-                print('~The books await say you could do this by now... Lets try again some other time~');
+                await say('~The books await say you could do this by now... Lets try again some other time~');
                 await cmd.sleep(3000);
-                print('~Its ok, we still love you~');
+                await say('~Its ok, we still love you~');
                 await cmd.sleep(3000);
 
             }
         } else {
             printDoorsByName(['Door ' + 1,'Door ' + 2]);
-            print('~No thats not an option, remember? Pick a door... its either 1 or 2~');
+            await say('~No thats not an option, remember? Pick a door... its either 1 or 2~');
             resp = await rl.q('>> ');
             if (resp.toLowerCase() === '1') {
-                print('~You did it! Im so proud of you! I knew you would get it eventually!~');
+                await say('~You did it! Im so proud of you! I knew you would get it eventually!~');
             } else {
-                print('~Sigh');
+                await say('~Sigh');
                 await cmd.sleep(2000);
                 await dramaticPauseWithText();
                 await cmd.sleep(500);
-                print('~The books await say you could do this by now... lets try again some other time~');
+                await say('~The books await say you could do this by now... lets try again some other time~');
                 await cmd.sleep(3000);
-                print('~Its ok, we still love you~');
+                await say('~Its ok, we still love you~');
                 await cmd.sleep(3000);
             }
         }
@@ -250,6 +252,11 @@ const run = async () => {
                 await maybeFirstConsiquence()
             }
         }
+        await cmd.sleep(1500);
+        await cdm.cs();
+        await dramaticPauseWithText(
+            'You ride the bus to school',
+       );
         await cmd.sleep(1500);
         await say(
             'The bus stopped and you followed the other US3R5 off the bus.',
@@ -494,13 +501,14 @@ const run = async () => {
         }
         await endOfWorld();
     } catch (err) {
-        if (err instanceof ZingError) {
-            print('Forced exit. Starting over...');
-            await cmd.pause();
-            await run();
-        } else {
-            throw err;
-        }
+        await say('You broke my world...');
+        await cmd.sleep(1500);
+        await dramaticPauseWithText('It was meant to be broken');
+        await cmd.sleep(4000);
+        await say(congrats)
+        await say("You Win!")
+        await cmd.sleep(1500);
+        await say(err);
     }
 };
 rl.init();
@@ -522,7 +530,7 @@ const printDoorsByName = doorNameArray => {
 
 const printStats = () => {
     if (hasEducationVal || hasChoicesLeftVal || hasFitnessVal || !hasFamily|| hasFamilyFavorVal|| hasLiarVal || hasBraveryVal || hasKarmaVal || knowsAge ) {
-        console.log('--------'+name+'-ST@T5-------')
+        console.log('------'+name+'-ST@T5------')
     }
     if (hasEducationVal) {
         console.log('Education: ' + education);
@@ -586,7 +594,9 @@ const isSuccessfulWithOneInXOdds = (denominatorOfOdds) => {
 }
 
 const dramaticPauseWithText = async (text) => {
-    process.stdout.write(text)
+    if(text) {
+        process.stdout.write(text);
+    }
     await cmd.sleep(500);
     process.stdout.write('.');
     await cmd.sleep(500);
