@@ -12,12 +12,75 @@ load_dramatically ()
     sleep 2
 }
 
-while getopts ":b" opt; do
+load_even_more_dramatically ()
+{
+    printf "Starting up doors"
+    sleep 1
+    printf "."
+    sleep 1
+    printf "."
+    sleep 1
+    printf "."
+    sleep 1
+    clear
+    sleep 2
+    printf "."
+    sleep 0.25
+    printf "."
+    sleep 0.25
+    printf "."
+    sleep 3
+    printf "*i"
+    sleep 0.25
+    printf "t"
+    sleep 0.25
+    printf "'"
+    sleep 0.25
+    printf "s"
+    sleep 0.25
+    printf " "
+    sleep 0.25
+    printf "d"
+    sleep 0.25
+    printf "a"
+    sleep 0.25
+    printf "r"
+    sleep 0.25
+    printf "k"
+    sleep 0.25
+    printf " "
+    sleep 0.25
+    printf "i"
+    sleep 0.25
+    printf "n"
+    sleep 0.25
+    printf " "
+    sleep 0.25
+    printf "h"
+    sleep 0.25
+    printf "e"
+    sleep 0.25
+    printf "r"
+    sleep 0.25
+    printf "e*"
+    sleep 0.25
+    printf "."
+    sleep 0.25
+    printf "."
+    sleep 0.25
+    printf "."
+}
+
+while getopts ":bd" opt; do
   case $opt in
     b)
       printf "Starting up the beer shop."
       load_dramatically
       $PWD/beer
+      ;;
+    d)
+      load_even_more_dramatically
+      $PWD/doors
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
